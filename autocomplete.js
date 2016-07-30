@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const readline = require('readline');
 const SuggestTree = require('./suggestTree');
 
 const DEFAULT_FILE = 'testExcerpt.txt';
@@ -24,33 +25,55 @@ function autoComplete(opts, cb) {
 	var validWord = new RegExp(/[0-9\/#!$%\^&\*;{}=\_`~()]+/ig);
 	var trailingSymbol = /[.,!:=;?]$/g;
 
-	console.log('Starting to add words in trie');
-	readStream.on('data', function(data) {
-		remaining += data;
-		var index = remaining.indexOf(' ');
-		var last  = 0;
-		while (index > -1) {
-		  var line = remaining.substring(last, index).trim().toLowerCase().replace(/[\']/g,'');
-		  last = index + 1;
-		  var notValid = validWord.test(line);
-		  if(!notValid && line.length > 0){
-		  	line = line.replace(trailingSymbol,'')
-		  	// dictionary[line] = dictionary[line] ? dictionary[line]++ : 1;
-		  	suggestTree.add(line);
-		  }
-		  index = remaining.indexOf(' ', last);
-		}
-		remaining = remaining.substring(last).trim().toLowerCase();
+	const rl = readline.createInterface({
+	  input: readStream
 	});
 
-	readStream.on('end', function() {
-		var notValid = validWord.test(remaining);
-	  if (!notValid && remaining.length > 0) {
-	  	remaining = remaining.replace(trailingSymbol,'')
-	    suggestTree.add(remaining);
+	rl.on('line', (line) => {
+		line = line.trim();
+	  var words = line.split(' ');
+	  while(words.length > 0){
+	  	var word = words.pop();
+	  	word = word.replace(trailingSymbol,'')
+	  	if(!validWord.test(word)){
+	  		word = word.toLowerCase();
+	  		allWords.push(word);
+	  		suggestTree.add(word);
+	  	}
 	  }
+	});
+
+	rl.on('close', () => {
 		cb(null, suggestTree);
 	});
+
+	// console.log('Starting to add words in trie');
+	// readStream.on('data', function(data) {
+	// 	remaining += data;
+	// 	var index = remaining.indexOf(' ');
+	// 	var last  = 0;
+	// 	while (index > -1) {
+	// 	  var line = remaining.substring(last, index).trim().toLowerCase().replace(/[\']/g,'');
+	// 	  last = index + 1;
+	// 	  var notValid = validWord.test(line);
+	// 	  if(!notValid && line.length > 0){
+	// 	  	line = line.replace(trailingSymbol,'')
+	// 	  	// dictionary[line] = dictionary[line] ? dictionary[line]++ : 1;
+	// 	  	suggestTree.add(line);
+	// 	  }
+	// 	  index = remaining.indexOf(' ', last);
+	// 	}
+	// 	remaining = remaining.substring(last).trim().toLowerCase();
+	// });
+
+	// readStream.on('end', function() {
+	// 	var notValid = validWord.test(remaining);
+	//   if (!notValid && remaining.length > 0) {
+	//   	remaining = remaining.replace(trailingSymbol,'')
+	//     suggestTree.add(remaining);
+	//   }
+	// 	cb(null, suggestTree);
+	// });
 }
 
 module.exports = autoComplete;

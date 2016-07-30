@@ -4,8 +4,12 @@ var autoComplete = require('./autoComplete');
 console.log('Welcome to AutoCompleter');
 console.log('Starting file scraper...')
 
+var testExcerpt = 'testExcerpt.txt';
+var test = 'test.txt';
+var shakespeare = 'shakespeare-complete.txt';
+
 const opts = {
-  file: 'test.txt'
+  file: shakespeare
 };
 
 autoComplete(opts, function(err,suggestTree){

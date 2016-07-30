@@ -44,17 +44,18 @@ class SuggestTree {
 		traverse(this.root, [], 0);
 		return result;
 	}
-	// Method to get words matching specific key
-	getWords(key, limit){
+	// Method to get words matching specific token, accepts a limit 
+	// parameter delimiting number of results to return (default 25).
+	getWords(token, limit = 25){
 		var result = [];
 		var ptr = this.root;
-		var prefix = key.slice(0, key.length - 1);
+		var prefix = token.slice(0, token.length - 1);
 
-		if (!key || !key.length) return result;
+		if (!token || !token.length) return result;
 
-		for (var i = 0; i < key.length; i++) {
-			if (ptr.children[key[i]]) {
-				ptr = ptr.children[key[i]];
+		for (var i = 0; i < token.length; i++) {
+			if (ptr.children[token[i]]) {
+				ptr = ptr.children[token[i]];
 			} else {
 				return result;
 			}
@@ -69,8 +70,6 @@ class SuggestTree {
 				let word = prefix + path.join("");
 				result.push({ word: word, frequency: node.frequency })
 			};
-
-			if (limit && result.length >= limit) return;
 			
 			Object.keys(node.children).forEach(function(key){
 				traverse(node.children[key], path, length);
@@ -78,116 +77,12 @@ class SuggestTree {
 		}
 
 		traverse(ptr, [], 0);
-		return result;
+		result = result.sort(function(a,b){
+			console.log('a is : ',a)
+			return b.frequency - a.frequency;
+		})
+		return limit ? result.slice(0,limit) : result;
 	}
 }
 
 module.exports = SuggestTree;
-
-
-// var suggestTree = function (tokenArray) {
-//     console.log('suggestTree called')
-//     var createLetterObject = function (l) {
-//         var pChildren = [];
-
-//         var getMatchingWords = function (characterArr, availableWords, children) {
-//             if (characterArr.length === 0) {
-//                 for (var child in children) {
-//                     if ({}.hasOwnProperty.call(children, child)) {
-//                         var currentChild = children[child];
-
-//                         var words = currentChild.getWords(characterArr);
-
-//                         for (var pos in words) {
-//                             if ({}.hasOwnProperty.call(words, pos)) {
-//                                 availableWords.push(words[pos]);
-//                             }
-//                         }
-
-//                         if (currentChild.word) {
-//                             availableWords.push(currentChild.word);
-//                         }
-//                     }
-//                 }
-//             } else {
-//                 var currentCharacter = characterArr.pop();
-//                 getMatchingWords(characterArr, availableWords, children[currentCharacter].children);
-//             }
-//         };
-
-//         function doGetWords(wordPart) {
-//             var len = wordPart.length;
-//             var ar = [];
-//             var wordList = [];
-
-//             for (var ii = len - 1; ii >= 0; ii --) {
-//                 ar.push(wordPart[ii].toUpperCase());
-//             }
-
-//             getMatchingWords(ar, wordList, pChildren);
-
-//             return wordList;
-//         }
-
-//         return {
-//             letter: l,
-//             children: pChildren,
-//             parent: null,
-//             word: null,
-//             getWords: doGetWords
-//         };
-//     };
-
-//     var startingPoint = createLetterObject();
-
-//     function parseWord(wordCharacterArray, parent, fullWord) {
-//         if (wordCharacterArray.length === 0) {
-//             parent.word = fullWord;
-//             return;
-//         }
-
-//         var currentCharacter = wordCharacterArray.pop().toUpperCase();
-
-//         if (!parent.children[currentCharacter]) {
-//             parent.children[currentCharacter] = createLetterObject(currentCharacter);
-//         }
-
-//         parseWord(wordCharacterArray, parent.children[currentCharacter], fullWord);
-//     }
-
-//     for (var counter in tokenArray) {
-//         if ({}.hasOwnProperty.call(tokenArray, counter)) {
-//             var word = tokenArray[counter];
-
-//             if (!word) {
-//                 continue;
-//             }
-
-//             var ar = [];
-
-//             var wordLength = word.length;
-
-//             for (var ii = wordLength - 1; ii >= 0; ii--) {
-//                 ar.push(word[ii]);
-//             }
-
-//             parseWord(ar, startingPoint, word);
-//         }
-//     }
-
-//   return startingPoint;
-// };
-
-
-// var tokens = ["Token", "words", "whohaa", "mommy", "test", "wicked"];
-// var tree = suggestTree(tokens);
-
-// module.exports = {
-//     suggestTree: suggestTree
-// }
-
-// var currentTokenSet = 'w'; 
-// var list = tree.getWords(currentTokenSet);
-
-// it will return words,whohaa,wicked.
-// console.log(list) 
