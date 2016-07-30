@@ -5,6 +5,7 @@ class Node {
 		this.value = value;
 		this.children = {};
 		this.isLeaf = false;
+		this.frequency = 0;
 	}
 }
 
@@ -12,18 +13,19 @@ class SuggestTree {
 	constructor(){
 		this.root = new Node(null);
 	}
-
+	// Method to add word to SuggestTree
 	add(word){
-		var ptr = this.root;
+		var pointer = this.root;
 		for (var i = 0; i < word.length; i++) {
-			if (!ptr.children[word[i]]) {
-				ptr.children[word[i]] = new Node(word[i]);
+			if (!pointer.children[word[i]]) {
+				pointer.children[word[i]] = new Node(word[i]);
 			}
-			ptr = ptr.children[word[i]];
+			pointer = pointer.children[word[i]];
 		}
-		ptr.isLeaf = true;
+		pointer.isLeaf = true;
+		pointer.frequency++;
 	}
-
+	// Method to get all words in SuggestTree
 	getAllWords(){
 		var result = [];
 
@@ -42,7 +44,7 @@ class SuggestTree {
 		traverse(this.root, [], 0);
 		return result;
 	}
-
+	// Method to get words matching specific key
 	getWords(key, limit){
 		var result = [];
 		var ptr = this.root;
@@ -63,7 +65,10 @@ class SuggestTree {
 
 			if (node.value) path[length++] = node.value;
 
-			if (node.isLeaf) result.push(prefix + path.join(""));
+			if (node.isLeaf) {
+				let word = prefix + path.join("");
+				result.push({ word: word, frequency: node.frequency })
+			};
 
 			if (limit && result.length >= limit) return;
 			
