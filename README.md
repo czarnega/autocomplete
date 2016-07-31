@@ -19,13 +19,98 @@ Just send back a tar'd gzip of your solution, with any instructions if necessary
 NOTE: You must use pure Ruby - no third-party gems, data stores, etc. However, feel free to use any reference resources, just make sure to cite anything you use (aside from the obvious Ruby docs, etc).
 --------------
 
+Test Results: 
+
+'th':
+```
+[ { word: 'the', frequency: 27730 },
+  { word: 'that', frequency: 11111 },
+  { word: 'this', frequency: 6632 },
+  { word: 'thou', frequency: 5467 },
+  { word: 'thy', frequency: 4029 },
+  { word: 'thee', frequency: 3154 },
+  { word: 'they', frequency: 2393 },
+  { word: 'then', frequency: 2206 },
+  { word: 'their', frequency: 2078 },
+  { word: 'them', frequency: 1948 },
+  { word: 'than', frequency: 1883 },
+  { word: 'there', frequency: 1795 },
+  { word: 'these', frequency: 1320 },
+  { word: 'th\'', frequency: 1147 },
+  { word: 'think', frequency: 1018 },
+  { word: 'thus', frequency: 758 },
+  { word: 'therefore', frequency: 623 },
+  { word: 'though', frequency: 621 },
+  { word: 'those', frequency: 545 },
+  { word: 'thine', frequency: 451 },
+  { word: 'that\'s', frequency: 397 },
+  { word: 'there\'s', frequency: 391 },
+  { word: 'three', frequency: 382 },
+  { word: 'thought', frequency: 369 },
+  { word: 'thing', frequency: 349 } ]
+```
+'fr':
+```
+[ { word: 'from', frequency: 2655 },
+  { word: 'france', frequency: 519 },
+  { word: 'friends', frequency: 455 },
+  { word: 'friend', frequency: 424 },
+  { word: 'french', frequency: 223 },
+  { word: 'free', frequency: 189 },
+  { word: 'friar', frequency: 181 },
+  { word: 'fresh', frequency: 87 },
+  { word: 'freely', frequency: 59 },
+  { word: 'frame', frequency: 45 },
+  { word: 'frown', frequency: 45 },
+  { word: 'francis', frequency: 43 },
+  { word: 'friendship', frequency: 41 },
+  { word: 'friendly', frequency: 36 },
+  { word: 'fruit', frequency: 36 },
+  { word: 'frederick', frequency: 34 },
+  { word: 'freedom', frequency: 33 },
+  { word: 'fright', frequency: 32 },
+  { word: 'froth', frequency: 25 },
+  { word: 'fran', frequency: 22 },
+  { word: 'front', frequency: 22 },
+  { word: 'frenchman', frequency: 20 },
+  { word: 'frowns', frequency: 18 },
+  { word: 'frail', frequency: 17 },
+  { word: 'fray', frequency: 17 } ]
+```
+'pi':
+```
+[ { word: 'pity', frequency: 212 },
+  { word: 'pistol', frequency: 180 },
+  { word: 'pisanio', frequency: 98 },
+  { word: 'piece', frequency: 87 },
+  { word: 'picture', frequency: 41 },
+  { word: 'pieces', frequency: 36 },
+  { word: 'pinch', frequency: 32 },
+  { word: 'pitiful', frequency: 30 },
+  { word: 'pitch', frequency: 30 },
+  { word: 'pierce', frequency: 28 },
+  { word: 'piteous', frequency: 22 },
+  { word: 'pit', frequency: 22 },
+  { word: 'pindarus', frequency: 19 },
+  { word: 'pin', frequency: 19 },
+  { word: 'pine', frequency: 19 },
+  { word: 'pitied', frequency: 18 },
+  { word: 'pick\'d', frequency: 17 },
+  { word: 'pilgrimage', frequency: 16 },
+  { word: 'pick', frequency: 16 },
+  { word: 'pillow', frequency: 16 },
+  { word: 'pipe', frequency: 13 },
+  { word: 'pigeons', frequency: 13 },
+  { word: 'pisa', frequency: 13 },
+  { word: 'piercing', frequency: 12 },
+  { word: 'pinch\'d', frequency: 10 } ]
+```
 Resources used: 
 * [John Resig, Revised JavaScript Dictionary Search](http://ejohn.org/blog/revised-javascript-dictionary-search/)
 * [TopCoder Using Tries](https://www.topcoder.com/community/data-science/data-science-tutorials/using-tries/)
 * [StackOverflow Autocomplete Using a Trie](http://stackoverflow.com/questions/5023141/autocomplete-using-a-trie)
 
-* http://igoro.com/archive/efficient-auto-complete-with-a-ternary-search-tree/
-* http://pushinginertia.com/2014/09/efficient-typeahead-autocomplete-data-structure-algorithm/
-* http://suggesttree.sourceforge.net/
-* http://st-on-it.blogspot.no/2011/05/how-to-read-user-input-with-nodejs.html
+
+* (http://suggesttree.sourceforge.net/)
+* (http://st-on-it.blogspot.no/2011/05/how-to-read-user-input-with-nodejs.html)
 
