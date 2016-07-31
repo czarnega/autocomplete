@@ -19,8 +19,8 @@ class SuggestTree {
 	}
 	// Method to add word to SuggestTree
 	add(word){
-		var pointer = this.root;
-		for (var i = 0; i < word.length; i++) {
+		let pointer = this.root;
+		for (let i = 0; i < word.length; i++) {
 			if (!pointer.children[word[i]]) {
 				pointer.children[word[i]] = new Node(word[i]);
 			}
@@ -32,7 +32,7 @@ class SuggestTree {
 	}
 	// Method to get all words in SuggestTree
 	getDictionary(){
-		var results = [];
+		const results = [];
 
 		// IIFE which traverses trie and pushes all leaf nodes into results
 		(function traverse(node, path, length) {
@@ -49,7 +49,7 @@ class SuggestTree {
 				results.push({ word: word, frequency: node.frequency })
 			};
 			
-			Object.keys(node.children).forEach(function(key){
+			Object.keys(node.children).forEach(key => {
 				traverse(node.children[key], path.slice(), length);
 			});
 		}(this.root, [], 0));
@@ -59,7 +59,7 @@ class SuggestTree {
 	// Method to get words matching specific token, accepts a limit 
 	// parameter delimiting number of results to return (default 50).
 	getMatches(token, limit = 50, descending){
-		var results = [],
+		let results = [],
 			pointer = this.root,
 			prefix = token.slice(0, token.length - 1);
 
@@ -68,7 +68,7 @@ class SuggestTree {
 
 		// For loop to check if the token exists in the trie,
 		// if not, returns empty array
-		for (var i = 0; i < token.length; i++) {
+		for (let i = 0; i < token.length; i++) {
 			if (pointer.children[token[i]]) {
 				pointer = pointer.children[token[i]];
 			} else {
@@ -91,15 +91,14 @@ class SuggestTree {
 				results.push({ word: word, frequency: node.frequency })
 			};
 			
-			Object.keys(node.children).forEach(function(key){
+			Object.keys(node.children).forEach(key => {
 				traverse(node.children[key], path.slice(), length);
 			});
 		}(pointer, [], 0));
 
-		results = results.sort(function(a,b){
-			return descending ? b.frequency - a.frequency : a.frequency - b.frequency;
-		})
-		return results.slice(0,limit);
+		return results.sort((a,b) => (
+			descending ? (b.frequency - a.frequency) : (a.frequency - b.frequency)
+		)).slice(0,limit);
 	}
 }
 

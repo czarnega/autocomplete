@@ -12,17 +12,17 @@ function autoComplete(options, callback) {
 		callback = options;
 		options = {};
 	}
-	var file = options.file || DEFAULT_FILE;
+	const file = options.file || DEFAULT_FILE;
 	// returns a ReadStream object
-	var readStream = fs.createReadStream(file, {
+	const readStream = fs.createReadStream(file, {
 	  defaultEncoding: 'utf8',
 	  autoClose: true
 	});
 
-	var suggestTree = new SuggestTree();
+	let suggestTree = new SuggestTree();
 
-	var validWord = new RegExp(/[0-9\/#!$%\^&\*;{}=\_`~()]+/ig);
-	var trailingSymbol = /[.,!:=;?]$/g;
+	const validWord = new RegExp(/[0-9\/#!$%\^&\*;{}=\_`~()]+/ig);
+	const trailingSymbol = /[.,!:=;?]$/g;
 
 	const rl = readline.createInterface({
 	  input: readStream
@@ -31,11 +31,10 @@ function autoComplete(options, callback) {
 	try {
 		rl.on('line', (line) => {
 			line = line.trim();
-		  var words = line.split(' ');
+		  let words = line.split(' ');
 		  while(words.length > 0){
-		  	var word = words.pop();
-		  	word = word.replace(trailingSymbol,'');
-		  	word = word.toLowerCase();
+		  	let word = words.pop();
+		  	word = word.replace(trailingSymbol,'').toLowerCase();
 		  	if(!validWord.test(word)){
 		  		suggestTree.add(word);	  		
 		  	}
