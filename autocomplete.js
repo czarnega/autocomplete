@@ -23,6 +23,7 @@ function autoComplete(opts, cb) {
 
 	var remaining = '';
 	var validWord = new RegExp(/[0-9\/#!$%\^&\*;{}=\_`~()]+/ig);
+	// var validWord = new RegExp(/^[a-z]*$/);
 	var trailingSymbol = /[.,!:=;?]$/g;
 
 	const rl = readline.createInterface({
@@ -34,11 +35,10 @@ function autoComplete(opts, cb) {
 	  var words = line.split(' ');
 	  while(words.length > 0){
 	  	var word = words.pop();
-	  	word = word.replace(trailingSymbol,'')
+	  	word = word.replace(trailingSymbol,'');
+	  	word = word.toLowerCase();
 	  	if(!validWord.test(word)){
-	  		word = word.toLowerCase();
-	  		allWords.push(word);
-	  		suggestTree.add(word);
+	  		suggestTree.add(word);	  		
 	  	}
 	  }
 	});
