@@ -51,7 +51,6 @@ class SuggestTree {
 		var result = [];
 		var ptr = this.root;
 		var prefix = token.slice(0, token.length - 1);
-		console.log('prefix is : ',prefix)
 
 		if (!token || !token.length) return result;
 
@@ -73,7 +72,6 @@ class SuggestTree {
 			}
 
 			if(node.isLeaf){
-				console.log('path is ',path)
 				let word = prefix + path.join("");
 				result.push({ word: word, frequency: node.frequency })
 			};
