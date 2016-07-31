@@ -4,12 +4,17 @@ var autoComplete = require('./autoComplete');
 console.log('Welcome to AutoCompleter');
 console.log('Starting file scraper...')
 
-var testExcerpt = 'testExcerpt.txt';
+// Sample txt files used for testing purposes
 var test = 'test.txt';
+var testExcerpt = 'testExcerpt.txt';
 var shakespeare = 'shakespeare-complete.txt';
 
+// Options object which specifies source file, number of results to display,
+// and if results should be displaying in descending or ascending order.
 const opts = {
-  file: shakespeare
+  file: shakespeare,
+  results: 25,
+  descending: true
 };
 
 autoComplete(opts, function(err,suggestTree){
@@ -27,7 +32,7 @@ function getResults(tree) {
    data = data.toString().trim().toLowerCase();
  
    if (/[a-z]/.test(data)) {
-     var results = tree.getWords(data);
+     var results = tree.getWords(data,opts.results,opts.descending);
      console.log('Results for ',data);
      console.log(results)
      var callback = getResults.bind(null,tree);

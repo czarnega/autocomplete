@@ -46,8 +46,8 @@ class SuggestTree {
 		return result;
 	}
 	// Method to get words matching specific token, accepts a limit 
-	// parameter delimiting number of results to return (default 25).
-	getWords(token, limit = 25){
+	// parameter delimiting number of results to return (default 50).
+	getWords(token, limit = 50, descending){
 		var result = [];
 		var ptr = this.root;
 		var prefix = token.slice(0, token.length - 1);
@@ -84,7 +84,7 @@ class SuggestTree {
 		traverse(ptr, [], 0);
 
 		result = result.sort(function(a,b){
-			return b.frequency - a.frequency;
+			return descending ? b.frequency - a.frequency : a.frequency - b.frequency;
 		})
 		return limit ? result.slice(0,limit) : result;
 	}
