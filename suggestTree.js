@@ -24,9 +24,10 @@ class SuggestTree {
 		}
 		pointer.isLeaf = true;
 		pointer.frequency++;
+		pointer = this.root;
 	}
 	// Method to get all words in SuggestTree
-	getAllWords(){
+	getAllWords(cb){
 		var result = [];
 
 		function traverse(node, path, length) {
@@ -37,7 +38,7 @@ class SuggestTree {
 			if (node.isLeaf) result.push(path.join(""));
 			
 			Object.keys(node.children).forEach(function(key){
-				traverse(node.children[key], path, length);
+				traverse(node.children[key], path.slice(), length);
 			});
 		}
 
@@ -50,6 +51,7 @@ class SuggestTree {
 		var result = [];
 		var ptr = this.root;
 		var prefix = token.slice(0, token.length - 1);
+		console.log('prefix is : ',prefix)
 
 		if (!token || !token.length) return result;
 
@@ -62,23 +64,28 @@ class SuggestTree {
 		}
 
 		function traverse(node, path, length) {
-			if (!node) return;
+			if(!node){
+				return
+			};
 
-			if (node.value) path[length++] = node.value;
+			if(node.value){
+				path[length++] = node.value;
+			}
 
-			if (node.isLeaf) {
+			if(node.isLeaf){
+				console.log('path is ',path)
 				let word = prefix + path.join("");
 				result.push({ word: word, frequency: node.frequency })
 			};
 			
 			Object.keys(node.children).forEach(function(key){
-				traverse(node.children[key], path, length);
+				traverse(node.children[key], path.slice(), length);
 			});
 		}
 
 		traverse(ptr, [], 0);
+
 		result = result.sort(function(a,b){
-			console.log('a is : ',a)
 			return b.frequency - a.frequency;
 		})
 		return limit ? result.slice(0,limit) : result;
