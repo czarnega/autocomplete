@@ -10,15 +10,9 @@ Autocomplete library which builds a dictionary based on input text file and uses
 4. Type 'y' to run again, or 'n' to exit program.
 
 ### For use in application
-1. Import autocomplete into file
+1. Import autocomplete into file `const AutoComplete = require('./lib/autocomplete');`
 
-```
-const AutoComplete = require('./lib/autocomplete');
-```
-
-2. Create options object to pass to AutoComplete
-
-```
+2. Create options object to pass to AutoComplete ```
 const options = {
   file: FILE_TO_USE_AS_DICTIONARY,
   resultLimit: NUMBER_OF_RESULTS,
