@@ -32,7 +32,7 @@ function getResults(tree) {
    data = data.toString().trim().toLowerCase();
  
    if (/[a-z]/.test(data)) {
-     var results = tree.getWords(data,opts.results,opts.descending);
+     var results = tree.getMatches(data,opts.results,opts.descending);
      console.log('Results for ',data);
      console.log(results)
      var callback = getResults.bind(null,tree);

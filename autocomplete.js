@@ -6,13 +6,13 @@ const SuggestTree = require('./suggestTree');
 
 const DEFAULT_FILE = 'testExcerpt.txt';
 
-// cb is a callback function with error,success params
-function autoComplete(opts, cb) {
-	if (!cb) {
-		cb = opts;
-		opts = {};
+// callback is a callback function with (error,treeObject) params
+function autoComplete(options, callback) {
+	if (!callback) {
+		callback = options;
+		options = {};
 	}
-	var file = opts.file || DEFAULT_FILE;
+	var file = options.file || DEFAULT_FILE;
 	// returns a ReadStream object
 	var readStream = fs.createReadStream(file, {
 	  defaultEncoding: 'utf8',
@@ -21,9 +21,7 @@ function autoComplete(opts, cb) {
 
 	var suggestTree = new SuggestTree();
 
-	var remaining = '';
 	var validWord = new RegExp(/[0-9\/#!$%\^&\*;{}=\_`~()]+/ig);
-	// var validWord = new RegExp(/^[a-z]*$/);
 	var trailingSymbol = /[.,!:=;?]$/g;
 
 	const rl = readline.createInterface({
@@ -45,11 +43,11 @@ function autoComplete(opts, cb) {
 		});
 
 		rl.on('close', () => {
-			cb(null, suggestTree);
+			callback(null, suggestTree);
 		});
 	}
 	catch (err) {
-		cb(err, null);
+		callback(err, null);
 	}
 }
 
