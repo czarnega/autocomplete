@@ -105,12 +105,11 @@ Test Results:
   { word: 'piercing', frequency: 12 },
   { word: 'pinch\'d', frequency: 10 } ]
 ```
-Resources used: 
+Resources used:
+
 * [John Resig, Revised JavaScript Dictionary Search](http://ejohn.org/blog/revised-javascript-dictionary-search/)
+* [Cracking the Coding Interview - Trie](https://codetype.wordpress.com/2012/09/01/cracking-the-coding-interview-javascript-trie/)
 * [TopCoder Using Tries](https://www.topcoder.com/community/data-science/data-science-tutorials/using-tries/)
 * [StackOverflow Autocomplete Using a Trie](http://stackoverflow.com/questions/5023141/autocomplete-using-a-trie)
-
-
-* (http://suggesttree.sourceforge.net/)
-* (http://st-on-it.blogspot.no/2011/05/how-to-read-user-input-with-nodejs.html)
+* [How To Read User Input With NodeJS](http://st-on-it.blogspot.no/2011/05/how-to-read-user-input-with-nodejs.html)
 
