@@ -1,6 +1,35 @@
 # autocomplete
 Autocomplete library which builds a dictionary based on input text file and uses no external libraries.
 
+## Directions for Use
+
+### For CLI autocomplete testing
+1. Clone repository to your local machine, and cd into project directory.
+2. Run `node initialize.js`
+3. When prompted, enter prefix/word to search for.
+4. Type 'y' to run again, or 'n' to exit program.
+
+### For use in application
+1. Import autocomplete into file
+```
+const AutoComplete = require('./lib/autocomplete');
+```
+2. Create options object to pass to AutoComplete
+```
+const options = {
+  file: FILE_TO_USE_AS_DICTIONARY,
+  resultLimit: NUMBER_OF_RESULTS,
+  descending: BOOLEAN
+};
+```
+3. Call AutoComplete function, passing options object as first parameter, and callback function as second parameter. Callback function should accept an error object as first parameter and the suggestTree as the second parameter.
+
+### SuggestTree API
+The SuggestTree class has the following methods:
+`add` which accepts a word string and inputs it into the SuggestTree
+`getDictionary` which accepts no parameters, and returns all complete words in the SuggestTree
+`getMatches` which accepts a token string of alphabetic characters and returns matching complete words, limited to the resultLimit specified in options and ordered by descending property in options.
+
 Autocomplete Problem
 ====================
 

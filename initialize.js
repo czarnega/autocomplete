@@ -1,14 +1,14 @@
 'use strict';
 
-const AutoComplete = require('./autocomplete');
+const AutoComplete = require('./lib/autocomplete');
 
 console.log('Welcome to AutoCompleter');
 console.log('Starting file scraper...')
 
 // Sample txt files used for testing purposes
-const test = 'test.txt';
-const testExcerpt = 'testExcerpt.txt';
-const shakespeare = 'shakespeare-complete.txt';
+const test = './data/test.txt';
+const testExcerpt = './data/testExcerpt.txt';
+const shakespeare = './data/shakespeare-complete.txt';
 
 // Options object which specifies source file, number of results to display,
 // and if results should be displaying in descending or ascending order.
